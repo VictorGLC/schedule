@@ -27,7 +27,7 @@ class Contact {
   check() {
     this.cleanUp();
 
-    if(!this.body.name) {
+    if(this.body.name == null) {
       this.errors.push('Nome é um campo obrigatório.');
     }
     if(this.body.email && !validator.isEmail(this.body.email)) { 
@@ -52,6 +52,14 @@ class Contact {
       phone: this.body.phone,
     };
   }
+
+  async edit(id) {
+    if(typeof id !== 'string') return;
+    this.check();
+    if(this.errors.length > 0) return;
+    this.contact = await ContactModel.findByIdAndUpdate(id, this.body, {new: true});
+  }
+
 }
 
 Contact.searchById = async function(id){

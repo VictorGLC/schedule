@@ -11,7 +11,11 @@
     
       <% include('includes/messages') %>
 
-      <form action="/contact/register" method="POST">
+      <% if(contact._id) { %>
+        <form action="/contact/edit/<%= contact._id %>" method="POST">
+      <% } else { %>
+        <form action="/contact/register" method="POST">
+      <% } %>  
         <input type="hidden" name="_csrf" value=<%= csrfToken %>>
         <div class="form-group">
           <label>Nome</label>
