@@ -64,8 +64,20 @@ class Contact {
 
 Contact.searchById = async function(id){
   if(typeof id !== 'string') return;
-  const user = await ContactModel.findById(id);
-  return user;
+  const contact = await ContactModel.findById(id);
+  return contact;
+}
+
+Contact.searchContacts = async function(){
+  const contacts = await ContactModel.find()
+  .sort({createdIn: -1 });
+  return contacts;
+}
+
+Contact.delete = async function(id){
+  if(typeof id !== 'string') return;
+  const contact = await ContactModel.findOneAndDelete({_id: id});
+  return contact;
 }
 
 module.exports = Contact;
